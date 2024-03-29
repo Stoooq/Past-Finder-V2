@@ -24,10 +24,10 @@ class Board {
         this.c.fillRect(0, 0, this.canvas.width, this.canvas.height)
         this.c.drawImage(this.image, 0, this.positionY, this.canvas.width, this.canvas.height)
         this.c.drawImage(this.image, 0, this.positionY - this.canvas.height, this.canvas.width, this.canvas.height)
-        if (this.isFaster === false) {
+        if (!this.isFaster) {
             this.positionY += this.speed.normal
         }
-        if (this.isFaster === true) {
+        if (this.isFaster) {
             this.positionY += this.speed.fast
         }
         if (this.positionY > this.canvas.height) this.positionY = 0

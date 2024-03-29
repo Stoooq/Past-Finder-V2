@@ -20,7 +20,7 @@ class Bullet {
 
     move = () => {
         this.position.y += this.velocity.y
-        this.velocity.y = -3
+        this.velocity.y = -8
     }
 }
 
