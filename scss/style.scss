@@ -9,4 +9,90 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    font-family: "Press Start 2P", system-ui;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: 5px;
+    background-color: black;
+}
+
+.gameBoard {
+    display: flex;
+    flex-direction: column;
+
+    .menu {
+
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+
+        .player-info {
+
+            .radiation {
+                display: flex;
+
+                .radiation-text {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .radiation-bar {
+                    position: relative;
+                    padding: 7px 0px;
+                    margin: 20px;
+                    width: 300px;
+                    height: 30px;
+
+                    .bar {
+                        width: 10%;
+                        height: 100%;
+                        background-color: rgb(86, 170, 21);
+                    }
+                }
+
+                .radiation-bar::before {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    content: '';
+                    width: 100%;
+                    height: 3px;
+                    background-color: rgb(86, 170, 21);
+                }
+
+                .radiation-bar::after {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    content: '';
+                    width: 100%;
+                    height: 3px;
+                    background-color: rgb(86, 170, 21);
+                }
+            }
+
+            .score {
+                display: flex;
+                justify-content: flex-start;
+                gap: 20px;
+                margin-left: 88px;
+
+                .score-text {
+                    
+                }
+
+                .score-number {
+                    
+                }
+            }
+        }
+
+        .lifes {
+            
+        }
+    }
 }

@@ -48,7 +48,7 @@ class Player {
                     this.lastKey = 'a'
                     break
                 case 'w':
-                    board.speed = 5
+                    board.isFaster = true
                     break
                 case ' ':
                     this.isShooting = true
@@ -65,7 +65,7 @@ class Player {
                     this.keys.a.pressed = false
                     break
                 case 'w':
-                    board.speed = 1
+                    board.isFaster = false
                     break
             }
         })

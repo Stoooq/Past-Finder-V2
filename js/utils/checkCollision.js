@@ -1,6 +1,6 @@
 import board from "../modules/Board.js"
 
-const checkCollision = (position, width, height) => {
+const checkCollision = (position, width) => {
     if (position.x <= 0) {
         position.x = 0
     }

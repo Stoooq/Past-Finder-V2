@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PastFinderv2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     
     <div class="gameBoard">
         <div class="menu"></div>
+        
         <canvas></canvas>
+
+        <div class="container">
+            <div class="player-info">
+                <div class="radiation">
+                    <div class="radiation-text">RADIATION</div>
+                    <div class="radiation-bar">
+                        <div class="bar"></div>
+                    </div>
+                </div>
+                <div class="score">
+                    <div class="score-text">Score</div>
+                    <div class="score-number">124432</div>
+                </div>
+            </div>
+            <div class="lifes"></div>
+        </div>
     </div>
 
     <script type="module" src="./js/index.js"></script>
