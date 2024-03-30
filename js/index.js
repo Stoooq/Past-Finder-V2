@@ -1,7 +1,7 @@
 import Player from "./modules/Player.js";
 import board from "./modules/Board.js";
 import render from "./utils/renderMap.js";
-import changeRadiation from "./utils/changeRadiation.js";
+import { changeRadiation } from "./utils/changeRadiation.js"
 
 const bullets = [];
 const enemies = [];
@@ -23,9 +23,9 @@ const player = new Player({
 const update = () => {
 	requestAnimationFrame(update);
 
-    changeRadiation(clock)
-	render(clock, enemies);
 	board.update();
+    changeRadiation(clock)
+	render(clock, bullets, enemies);
 	player.update(clock);
 	bullets.forEach((bullet) => {
 		bullet.update();
@@ -34,8 +34,6 @@ const update = () => {
         enemy.update()
     })
 	clock += 1;
-    let random = Math.floor(Math.random() * (1000 - 50))
-    console.log(random);
 };
 
 

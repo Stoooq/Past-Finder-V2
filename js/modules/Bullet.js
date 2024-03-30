@@ -1,16 +1,23 @@
 import board from "./Board.js"
+import { checkBulletCollision } from "../utils/checkCollision.js"
 
 class Bullet {
-    constructor ({ position, velocity }) {
+    constructor ({ position, velocity, bullets }) {
         this.position = position
+        this.velocity = velocity
+        this.bullets = bullets
         this.width = 5
         this.height = 15
-        this.velocity = velocity
+        this.speed = {
+            normal: 8,
+            fast: 6
+        }
     }
 
     update = () => {
         this.draw()
         this.move()
+        checkBulletCollision(this, this.bullets)
     }
 
     draw = () => {
@@ -20,7 +27,12 @@ class Bullet {
 
     move = () => {
         this.position.y += this.velocity.y
-        this.velocity.y = -8
+        if (!board.isFaster) {
+            this.velocity.y = -this.speed.normal
+        }
+        if (board.isFaster) {
+            this.velocity.y = -this.speed.fast
+        }
     }
 }
 

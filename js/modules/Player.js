@@ -1,13 +1,14 @@
 import Bullet from "./Bullet.js"
-import checkCollision from "../utils/checkPlayerCollision.js"
+import { checkPlayerCollision } from "../utils/checkCollision.js"
 import board from "./Board.js"
 
 class Player {
     constructor ({ position, velocity, bullets }) {
         this.position = position
+        this.velocity = velocity
+        this.bullets = bullets
         this.width = 50
         this.height = 50
-        this.velocity = velocity
         this.playerSpeed = 10
         this.lastKey = undefined
         this.keys = {
@@ -19,7 +20,6 @@ class Player {
             },
         }
         this.isShooting = false
-        this.bullets = bullets
         this.shotClock
         this.shotRate = 30
     }
@@ -29,7 +29,7 @@ class Player {
         this.handling()
         this.moving()
         this.shot(shotDelay)
-        checkCollision(this.position, this.width, this.height)
+        checkPlayerCollision(this.position, this.width)
     }
 
     draw = () => {
@@ -85,6 +85,7 @@ class Player {
     shot = (shotDelay) => {
         if ((shotDelay - this.shotClock) < this.shotRate) return
         if (this.isShooting) {
+            const bullets = this.bullets
             const newBullet = new Bullet({
                 position: {
                     x: (this.position.x + this.width / 2),
@@ -93,7 +94,8 @@ class Player {
                 velocity: {
                     x: 0,
                     y: 0
-                }
+                },
+                bullets
             })
             this.isShooting = false
             this.shotClock = shotDelay

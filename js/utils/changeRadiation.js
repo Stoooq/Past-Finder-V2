@@ -10,16 +10,24 @@ const radiationRate = {
     fast: 0.8
 }
 
+const setRadiation = (rate) => {
+    if (radiationWidth < 0) {
+        radiationWidth = 0
+        return
+    }
+    radiationWidth += rate
+}
+
 const changeRadiation = (time) => {
     if ((time - clockTime) < delayTime) return
     clockTime = time
     radiationBar.style.width = radiationWidth + '%'
     if (!board.isFaster) {
-        radiationWidth += radiationRate.normal
+        setRadiation(radiationRate.normal)
     }
     if (board.isFaster) {
-        radiationWidth += radiationRate.fast
+        setRadiation(radiationRate.fast)
     }
 }
 
-export default changeRadiation
+export { changeRadiation, setRadiation }
