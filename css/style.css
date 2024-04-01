@@ -17,35 +17,64 @@ body {
 }
 
 .gameBoard {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
-.gameBoard .container {
+.gameBoard .menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 120px;
+  width: 1024px;
+  height: 576px;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: default;
+}
+.gameBoard .menu .menu-text {
+  text-align: center;
+}
+.gameBoard .menu .difficulty {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+.gameBoard .menu .difficulty .mode {
+  padding: 20px;
+  cursor: pointer;
+}
+.gameBoard .menu .start-btn {
+  padding: 20px;
+  cursor: pointer;
+}
+.gameBoard .info-container {
   display: flex;
   justify-content: center;
   flex-direction: row;
 }
-.gameBoard .container .player-info .radiation {
+.gameBoard .info-container .player-info .radiation {
   display: flex;
 }
-.gameBoard .container .player-info .radiation .radiation-text {
+.gameBoard .info-container .player-info .radiation .radiation-text {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.gameBoard .container .player-info .radiation .radiation-bar {
+.gameBoard .info-container .player-info .radiation .radiation-bar {
   position: relative;
   padding: 7px 0px;
   margin: 20px;
   width: 300px;
   height: 30px;
 }
-.gameBoard .container .player-info .radiation .radiation-bar .bar {
-  width: 10%;
+.gameBoard .info-container .player-info .radiation .radiation-bar .bar {
+  width: 0%;
   height: 100%;
   background-color: rgb(86, 170, 21);
 }
-.gameBoard .container .player-info .radiation .radiation-bar::before {
+.gameBoard .info-container .player-info .radiation .radiation-bar::before {
   position: absolute;
   top: 0;
   left: 0;
@@ -54,7 +83,7 @@ body {
   height: 3px;
   background-color: rgb(86, 170, 21);
 }
-.gameBoard .container .player-info .radiation .radiation-bar::after {
+.gameBoard .info-container .player-info .radiation .radiation-bar::after {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -63,7 +92,7 @@ body {
   height: 3px;
   background-color: rgb(86, 170, 21);
 }
-.gameBoard .container .player-info .score {
+.gameBoard .info-container .player-info .score {
   display: flex;
   justify-content: flex-start;
   gap: 20px;

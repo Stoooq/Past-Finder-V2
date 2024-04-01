@@ -8,15 +8,11 @@ class Bullet {
         this.bullets = bullets
         this.width = 5
         this.height = 15
-        this.speed = {
-            normal: 8,
-            fast: 6
-        }
     }
 
-    update = () => {
+    update = (mode) => {
         this.draw()
-        this.move()
+        this.move(mode)
         checkBulletCollision(this, this.bullets)
     }
 
@@ -25,13 +21,13 @@ class Bullet {
         board.c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 
-    move = () => {
+    move = (mode) => {
         this.position.y += this.velocity.y
-        if (!board.isFaster) {
-            this.velocity.y = -this.speed.normal
+        if (!board.isSlower) {
+            this.velocity.y = -mode.bullet.normal
         }
-        if (board.isFaster) {
-            this.velocity.y = -this.speed.fast
+        if (board.isSlower) {
+            this.velocity.y = -mode.bullet.slow
         }
     }
 }

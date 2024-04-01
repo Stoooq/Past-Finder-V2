@@ -1,9 +1,10 @@
 import Bullet from "./Bullet.js"
 import { checkPlayerCollision } from "../utils/checkCollision.js"
 import board from "./Board.js"
+import Sprite from "./Sprite.js"
 
 class Player {
-    constructor ({ position, velocity, bullets }) {
+    constructor ({ position, velocity, bullets }) { 
         this.position = position
         this.velocity = velocity
         this.bullets = bullets
@@ -21,14 +22,13 @@ class Player {
         }
         this.isShooting = false
         this.shotClock
-        this.shotRate = 30
     }
 
-    update = (shotDelay) => {
+    update = (mode, shotDelay) => {
         this.draw()
         this.handling()
         this.moving()
-        this.shot(shotDelay)
+        this.shot(mode, shotDelay)
         checkPlayerCollision(this.position, this.width)
     }
 
@@ -48,8 +48,8 @@ class Player {
                     this.keys.a.pressed = true
                     this.lastKey = 'a'
                     break
-                case 'w':
-                    board.isFaster = true
+                case 's':
+                    board.isSlower = true
                     break
                 case ' ':
                     this.isShooting = true
@@ -65,8 +65,8 @@ class Player {
                 case 'a':
                     this.keys.a.pressed = false
                     break
-                case 'w':
-                    board.isFaster = false
+                case 's':
+                    board.isSlower = false
                     break
             }
         })
@@ -82,9 +82,10 @@ class Player {
         this.position.x += this.velocity.x
     }
 
-    shot = (shotDelay) => {
-        if ((shotDelay - this.shotClock) < this.shotRate) return
+    shot = (mode, shotDelay) => {
+        if ((shotDelay - this.shotClock) < mode.player.shotRate) return
         if (this.isShooting) {
+            this.shotClock = shotDelay
             const bullets = this.bullets
             const newBullet = new Bullet({
                 position: {
@@ -98,7 +99,6 @@ class Player {
                 bullets
             })
             this.isShooting = false
-            this.shotClock = shotDelay
             this.bullets.push(newBullet)
         }
     }

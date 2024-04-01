@@ -1,5 +1,6 @@
 import board from "../modules/Board.js";
 import { setRadiation } from "./changeRadiation.js";
+import { changeScore } from "./changeScore.js";
 
 const checkPlayerCollision = (position, width) => {
     if (position.x <= 0) {
@@ -22,11 +23,24 @@ const checkEnemyCollision = (enemy, enemies, bullets) => {
             enemies.splice(enemies.indexOf(enemy), 1)
             bullets.splice(bullets.indexOf(bullet), 1)
             setRadiation(-1)
+            changeScore(1)
         }
     })
     if (enemy.position.y >= board.canvas.height) {
         enemies.splice(enemies.indexOf(enemy), 1)
     }
 }
+const checkBuffCollision = (buff, buffs, bullets) => {
+    bullets.forEach(bullet => {
+        if (buff.position.x < bullet.position.x && buff.position.x + buff.width > bullet.position.x + bullet.width && buff.position.y < bullet.position.y && buff.position.y + buff.height > bullet.position.y + bullet.height) {
+            buffs.splice(buffs.indexOf(buff), 1)
+            bullets.splice(bullets.indexOf(bullet), 1)
+            setRadiation(-10)
+        }
+    })
+    if (buff.position.y >= board.canvas.height) {
+        buffs.splice(buffs.indexOf(buff), 1)
+    }
+}
 
-export { checkPlayerCollision, checkBulletCollision, checkEnemyCollision }
+export { checkPlayerCollision, checkBulletCollision, checkEnemyCollision, checkBuffCollision }
