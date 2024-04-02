@@ -13,22 +13,18 @@ class Board {
         this.image.src = this.src
         this.positionY = 0
         this.isSlower = false
-        this.speed = {
-            normal: 1.25,
-            slow: 0.5
-        }
     }
 
-    update = () => {
+    update = (mode) => {
         this.c.fillStyle = 'black'
         this.c.fillRect(0, 0, this.canvas.width, this.canvas.height)
         this.c.drawImage(this.image, 0, this.positionY, this.canvas.width, this.canvas.height)
         this.c.drawImage(this.image, 0, this.positionY - this.canvas.height, this.canvas.width, this.canvas.height)
         if (!this.isSlower) {
-            this.positionY += this.speed.normal
+            this.positionY += mode.map.normal
         }
         if (this.isSlower) {
-            this.positionY += this.speed.slow
+            this.positionY += mode.map.slow
         }
         if (this.positionY > this.canvas.height) this.positionY = 0
     }

@@ -1,13 +1,13 @@
 import board from "./Board.js";
 
 class Sprite {
-    constructor ({ position, imageSrc, scale = 1, framesMax = 1, offset = {x: 0, y: 0} }) {
+    constructor ({ position, imageSrc, scale = 1, framesMax = 1, offset = {x: 0, y: 0}, framesCurrent = 0 }) {
         this.position = position
         this.image = new Image()
         this.image.src = imageSrc
         this.scale = scale
         this.framesMax = framesMax
-        this.framesCurrent = 0
+        this.framesCurrent = framesCurrent
         this.framesElapsed = 0
         this.framesHold = 5
         this.offset = offset
@@ -19,7 +19,7 @@ class Sprite {
     }
 
     draw = () => {
-        c.drawImage(this.image, 
+        board.c.drawImage(this.image, 
             this.framesCurrent * (this.image.width / this.framesMax), 
             0, 
             this.image.width / this.framesMax, 

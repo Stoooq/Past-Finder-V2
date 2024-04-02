@@ -2,6 +2,7 @@ import Player from "./modules/Player.js";
 import board from "./modules/Board.js";
 import render from "./utils/renderMap.js";
 import { changeRadiation, radiationWidth } from "./utils/changeRadiation.js"
+import Sprite from "./modules/Sprite.js";
 
 const menu = document.querySelector('.menu')
 const infoConatainer = document.querySelector('.info-container')
@@ -42,11 +43,18 @@ const modes = {
     },
     medium: {
         player: {
-            shotRate: 20
+            shotRate: 150,
+            shotRateFast: 60
         },
         bullet: {
-            normal: 6,
-            slow: 8
+            multiply: {
+                normal: 6,
+                slow: 8
+            },
+            single: {
+                normal: 3,
+                slow: 5
+            }
         },
         map: {
             normal: 1.25,
@@ -85,26 +93,51 @@ const player = new Player({
 		x: 0,
 		y: 0,
 	},
+    enemies,
 	bullets,
+    buffs,
+    imageSrc: './assets/Ship/Main Ship - Base - Full health.png',
+    scale: 2,
+    framesMax: 1,
+    offset: {
+        x: 24,
+        y: 24
+    },
+    sprites: {
+        fullHealth: {
+            imageSrc: './assets/Ship/Main Ship - Base - Full health.png',
+            framesMax: 1
+        },
+        slightDamage: {
+            imageSrc: './assets/Ship/Main Ship - Base - Slight damage.png',
+            framesMax: 1
+        },
+        damaged: {
+            imageSrc: './assets/Ship/Main Ship - Base - Damaged.png',
+            framesMax: 1
+        },
+        veryDamaged: {
+            imageSrc: './assets/Ship/Main Ship - Base - Very damaged.png',
+            framesMax: 1
+        }
+    },
 });
 
 const update = () => {
-    board.speed = {
-        normal: currentMode.map.normal,
-        slow: currentMode.map.slow
-    }
     if (isRunning && radiationWidth <= 100) {
         requestAnimationFrame(update);
     
-        board.update();
+        board.update(currentMode);
         changeRadiation(currentMode, clock)
         render(clock, bullets, enemies, buffs);
+
         player.update(currentMode, clock);
+
         bullets.forEach(bullet => {
             bullet.update(currentMode);
         });
         enemies.forEach(enemy => {
-            enemy.update(currentMode, clock)
+            enemy.update(currentMode)
         })
         buffs.forEach(buff => {
             buff.update()
@@ -122,7 +155,6 @@ const handleMode = (e) => {
     currentMode === 'Easy' ? currentMode = modes.easy : ''
     currentMode === 'Medium' ? currentMode = modes.medium : ''
     currentMode === 'Hard' ? currentMode = modes.hard : ''
-    console.log(currentMode);
 }
 
 const startGame = () => {

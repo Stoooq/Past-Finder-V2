@@ -1,33 +1,52 @@
 import board from "./Board.js"
 import { checkBulletCollision } from "../utils/checkCollision.js"
+import Sprite from "./Sprite.js"
 
-class Bullet {
-    constructor ({ position, velocity, bullets }) {
-        this.position = position
+class Bullet extends Sprite {
+    constructor ({ position, velocity, width, height, type, bullets, imageSrc, scale = 1, framesMax = 1, offset = {x: 0, y: 0} }) {
+        super({
+            position,
+            imageSrc,
+            scale,
+            framesMax,
+            offset
+        })
         this.velocity = velocity
+        this.width = width
+        this.height = height
+        this.type = type
         this.bullets = bullets
-        this.width = 5
-        this.height = 15
     }
 
     update = (mode) => {
         this.draw()
+        this.animateFrames()
         this.move(mode)
         checkBulletCollision(this, this.bullets)
     }
 
-    draw = () => {
-        board.c.fillStyle = 'blue'
-        board.c.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
+    // draw = () => {
+    //     board.c.fillStyle = 'blue'
+    //     board.c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    // }
 
     move = (mode) => {
         this.position.y += this.velocity.y
         if (!board.isSlower) {
-            this.velocity.y = -mode.bullet.normal
+            if (this.type === 1) {
+                this.velocity.y = -mode.bullet.multiply.normal
+            }
+            if (this.type === 2) {
+                this.velocity.y = -mode.bullet.single.normal
+            }
         }
         if (board.isSlower) {
-            this.velocity.y = -mode.bullet.slow
+            if (this.type === 1) {
+                this.velocity.y = -mode.bullet.multiply.slow
+            }
+            if (this.type === 2) {
+                this.velocity.y = -mode.bullet.single.slow
+            }
         }
     }
 }
