@@ -3,12 +3,13 @@ import { checkBulletCollision } from "../utils/checkCollision.js"
 import Sprite from "./Sprite.js"
 
 class Bullet extends Sprite {
-    constructor ({ position, velocity, width, height, type, bullets, imageSrc, scale = 1, framesMax = 1, offset = {x: 0, y: 0} }) {
+    constructor ({ position, velocity, width, height, type, bullets, imageSrc, scale = 1, columns = 1, maxFrames = 1, offset = {x: 0, y: 0} }) {
         super({
             position,
             imageSrc,
             scale,
-            framesMax,
+            columns,
+            maxFrames,
             offset
         })
         this.velocity = velocity

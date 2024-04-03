@@ -11,6 +11,9 @@ const setRadiation = (rate) => {
         radiationWidth = 0
         return
     }
+    if (radiationWidth < 50) {
+        radiationBar.style.backgroundColor = 'rgb(86, 170, 21)'
+    }
     if (radiationWidth >= 50) {
         radiationBar.style.backgroundColor = 'orange'
     }

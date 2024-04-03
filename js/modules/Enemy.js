@@ -1,9 +1,19 @@
 import board from "./Board.js"
 import { checkEnemyCollision } from "../utils/checkCollision.js"
+import Sprite from "./Sprite.js"
 
-class Enemy {
-    constructor ({ position, velocity, enemies, bullets}) {
-        this.position = position
+class Enemy extends Sprite {
+    constructor ({ position, velocity, enemies, bullets, imageSrc, scale = 1, columns = 1, rows = 1, row = 0, maxFrames = 1, offset = {x: 0, y: 0} }) {
+        super({
+            position,
+            imageSrc,
+            scale,
+            columns,
+            rows,
+            row,
+            maxFrames,
+            offset
+        })
         this.velocity = velocity
         this.enemies = enemies
         this.bullets = bullets
@@ -13,13 +23,9 @@ class Enemy {
 
     update = (mode) => {
         this.draw()
+        this.animateFrames()
         this.move(mode)
         checkEnemyCollision(this, this.enemies, this.bullets)
-    }
-
-    draw = () => {
-        board.c.fillStyle = 'green'
-        board.c.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 
     move = (mode) => {

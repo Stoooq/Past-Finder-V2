@@ -98,7 +98,7 @@ const player = new Player({
     buffs,
     imageSrc: './assets/Ship/Main Ship - Base - Full health.png',
     scale: 2,
-    framesMax: 1,
+    columns: 1,
     offset: {
         x: 24,
         y: 24
@@ -106,19 +106,19 @@ const player = new Player({
     sprites: {
         fullHealth: {
             imageSrc: './assets/Ship/Main Ship - Base - Full health.png',
-            framesMax: 1
+            columns: 1
         },
         slightDamage: {
             imageSrc: './assets/Ship/Main Ship - Base - Slight damage.png',
-            framesMax: 1
+            columns: 1
         },
         damaged: {
             imageSrc: './assets/Ship/Main Ship - Base - Damaged.png',
-            framesMax: 1
+            columns: 1
         },
         veryDamaged: {
             imageSrc: './assets/Ship/Main Ship - Base - Very damaged.png',
-            framesMax: 1
+            columns: 1
         }
     },
 });

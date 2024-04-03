@@ -1,9 +1,18 @@
 import board from "./Board.js"
 import { checkBuffCollision } from "../utils/checkCollision.js"
+import Sprite from "./Sprite.js"
 
-class Buff {
-    constructor ({ position, velocity, buffs, bullets}) {
-        this.position = position
+class Buff extends Sprite {
+    constructor ({ position, velocity, buffs, bullets, imageSrc, scale = 1, columns = 1, maxFrames = 1, offset = {x: 0, y: 0} }) {
+        super({
+            position,
+            imageSrc,
+            scale,
+            columns,
+            maxFrames,
+            offset
+        })
+        // this.position = position
         this.velocity = velocity
         this.buffs = buffs
         this.bullets = bullets
@@ -17,14 +26,15 @@ class Buff {
 
     update = () => {
         this.draw()
+        this.animateFrames()
         this.move()
         checkBuffCollision(this, this.buffs, this.bullets)
     }
 
-    draw = () => {
-        board.c.fillStyle = 'gold'
-        board.c.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
+    // draw = () => {
+    //     board.c.fillStyle = 'gold'
+    //     board.c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    // }
 
     move = () => {
         this.position.y += this.velocity.y

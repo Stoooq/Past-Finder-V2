@@ -8,7 +8,7 @@ class Board {
         this.c.mozImageSmoothingEnabled = false;
         this.c.webkitImageSmoothingEnabled = false;
         this.c.imageSmoothingEnabled = false;
-        this.src = '../assets/Space Background.png'
+        this.src = '../assets/Background.png'
         this.image = new Image()
         this.image.src = this.src
         this.positionY = 0
@@ -18,15 +18,15 @@ class Board {
     update = (mode) => {
         this.c.fillStyle = 'black'
         this.c.fillRect(0, 0, this.canvas.width, this.canvas.height)
-        this.c.drawImage(this.image, 0, this.positionY, this.canvas.width, this.canvas.height)
-        this.c.drawImage(this.image, 0, this.positionY - this.canvas.height, this.canvas.width, this.canvas.height)
+        this.c.drawImage(this.image, 0, -this.image.height + this.canvas.height + this.positionY, this.image.width, this.image.height)
+        this.c.drawImage(this.image, 0, -this.image.height * 2 +this.canvas.height + this.positionY, this.image.width, this.image.height)
         if (!this.isSlower) {
             this.positionY += mode.map.normal
         }
         if (this.isSlower) {
             this.positionY += mode.map.slow
         }
-        if (this.positionY > this.canvas.height) this.positionY = 0
+        if (this.positionY > this.image.height) this.positionY = 0
     }
 }
 

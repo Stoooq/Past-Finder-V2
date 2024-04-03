@@ -4,12 +4,13 @@ import board from "./Board.js"
 import Sprite from "./Sprite.js"
 
 class Player extends Sprite {
-    constructor ({ position, velocity, bullets, enemies, buffs, imageSrc, scale = 1, framesMax = 1, offset = {x: 0, y: 0}, sprites }) { 
+    constructor ({ position, velocity, bullets, enemies, buffs, imageSrc, scale = 1, columns = 1, maxFrames = 1, offset = {x: 0, y: 0}, sprites }) { 
         super({
             position,
             imageSrc,
             scale,
-            framesMax,
+            columns,
+            maxFrames,
             offset
         })
         this.velocity = velocity
@@ -18,7 +19,7 @@ class Player extends Sprite {
         this.buffs = buffs
         this.width = 50
         this.height = 50
-        this.playerSpeed = 10
+        this.playerSpeed = 8
         this.lastKey = undefined
         this.keys = {
             d: {
@@ -44,7 +45,8 @@ class Player extends Sprite {
             },
             imageSrc: '../assets/Engines/Main Ship - Engines - Supercharged Engine.png',
             scale: 2,
-            framesMax: 1
+            columns: 1,
+            maxFrames: 1
         })
         this.effect = new Sprite({
             position: {
@@ -53,7 +55,8 @@ class Player extends Sprite {
             },
             imageSrc: '../assets/Effects/Main Ship - Engines - Supercharged Engine - Powering.png',
             scale: 2,
-            framesMax: 4
+            columns: 4,
+            maxFrames: 4
         })
         this.weapon = new Sprite({
             position: {
@@ -62,7 +65,8 @@ class Player extends Sprite {
             },
             imageSrc: '../assets/Weapons/Main Ship - Weapons - Rockets.png',
             scale: 2,
-            framesMax: 17
+            columns: 17,
+            maxFrames: 17
         })
         this.animatingWeapon = false
         this.weaponType = 1
@@ -72,7 +76,6 @@ class Player extends Sprite {
         if (!this.dead) {
             this.animateFrames()
         }
-        console.log(this.effect);
         this.engine.position.x = this.position.x - 24
         this.engine.position.y = this.position.y - 24
         this.engine.draw()
@@ -84,7 +87,7 @@ class Player extends Sprite {
         this.weapon.position.x = this.position.x - 24
         this.weapon.position.y = this.position.y - 24
         this.weapon.draw()
-        if (this.weapon.framesCurrent === this.weapon.framesMax - 1) {
+        if (this.weapon.framesCurrent === this.weapon.columns - 1) {
             setTimeout(() => {
                 this.animatingWeapon = false
                 this.weapon.framesCurrent = 0
@@ -180,16 +183,20 @@ class Player extends Sprite {
         if (this.weaponType === 1) {
             this.engine.image.src = '../assets/Engines/Main Ship - Engines - Supercharged Engine.png'
             this.effect.image.src = '../assets/Effects/Main Ship - Engines - Supercharged Engine - Powering.png'
-            this.effect.framesMax = 4
+            this.effect.columns = 4
+            this.effect.maxFrames = 4
             this.weapon.image.src = '../assets/Weapons/Main Ship - Weapons - Rockets.png'
-            this.weapon.framesMax = 17
+            this.weapon.columns = 17
+            this.weapon.maxFrames = 17
         }
         if (this.weaponType === 2) {
             this.engine.image.src = '../assets/Engines/Main Ship - Engines - Big Pulse Engine.png'
             this.effect.image.src = '../assets/Effects/Main Ship - Engines - Big Pulse Engine - Powering.png'
-            this.effect.framesMax = 4
+            this.effect.columns = 4
+            this.effect.maxFrames = 4
             this.weapon.image.src = '../assets/Weapons/Main Ship - Weapons - Big Space Gun.png'
-            this.weapon.framesMax = 12
+            this.weapon.columns = 12
+            this.weapon.maxFrames = 12
         }
     }
 
@@ -230,7 +237,8 @@ class Player extends Sprite {
                         bullets,
                         imageSrc: '../assets/Bullets/Main ship weapon - Projectile - Rocket.png',
                         scale: 2,
-                        framesMax: 3,
+                        columns: 3,
+                        maxFrames: 3,
                         offset: {
                             x: 28,
                             y: 28
@@ -263,13 +271,14 @@ class Player extends Sprite {
                             x: 0,
                             y: 0
                         },
-                        width: 20,
-                        height: 20,
+                        width: 25,
+                        height: 25,
                         type: 2,
                         bullets,
                         imageSrc: '../assets/Bullets/Main ship weapon - Projectile - Big Space Gun.png',
                         scale: 2,
-                        framesMax: 10,
+                        columns: 10,
+                        maxFrames: 10,
                         offset: {
                             x: 28,
                             y: 28
@@ -286,28 +295,28 @@ class Player extends Sprite {
             case 'fullHealth':
                 if (this.image !== this.sprites.fullHealth.image) {
                     this.image = this.sprites.fullHealth.image
-                    this.framesMax = this.sprites.fullHealth.framesMax
+                    this.columns = this.sprites.fullHealth.columns
                     this.framesCurrent = 0
                 }
                 break
             case 'slightDamage':
                 if (this.image !== this.sprites.slightDamage.image) {
                     this.image = this.sprites.slightDamage.image
-                    this.framesMax = this.sprites.slightDamage.framesMax
+                    this.columns = this.sprites.slightDamage.columns
                     this.framesCurrent = 0
                 }
                 break
             case 'damaged':
                 if (this.image !== this.sprites.damaged.image) {
                     this.image = this.sprites.damaged.image
-                    this.framesMax = this.sprites.damaged.framesMax
+                    this.columns = this.sprites.damaged.columns
                     this.framesCurrent = 0
                 }
                 break
             case 'veryDamaged':
                 if (this.image !== this.sprites.veryDamaged.image) {
                     this.image = this.sprites.veryDamaged.image
-                    this.framesMax = this.sprites.veryDamaged.framesMax
+                    this.columns = this.sprites.veryDamaged.columns
                     this.framesCurrent = 0
                 }
                 break
