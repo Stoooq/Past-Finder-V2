@@ -1,10 +1,10 @@
 import Bullet from "./Bullet.js"
-import { checkPlayerCollision, checkPlayerEnemyCollision, checkPlayerBuffCollision } from "../utils/checkCollision.js"
+import { checkPlayerCollision, checkPlayerEnemyCollision, checkPlayerBuffCollision, checkPlayerSmallEnemyCollision, checkPlayerBulletCollision } from "../utils/checkCollision.js"
 import board from "./Board.js"
 import Sprite from "./Sprite.js"
 
 class Player extends Sprite {
-    constructor ({ position, velocity, bullets, enemies, buffs, imageSrc, scale = 1, columns = 1, maxFrames = 1, offset = {x: 0, y: 0}, sprites }) { 
+    constructor ({ position, velocity, bullets, enemies, buffs, smallEnemies, imageSrc, scale = 1, columns = 1, maxFrames = 1, offset = {x: 0, y: 0}, sprites }) { 
         super({
             position,
             imageSrc,
@@ -17,6 +17,7 @@ class Player extends Sprite {
         this.bullets = bullets
         this.enemies = enemies
         this.buffs = buffs
+        this.smallEnemies = smallEnemies
         this.width = 50
         this.height = 50
         this.playerSpeed = 8
@@ -104,6 +105,8 @@ class Player extends Sprite {
         checkPlayerCollision(this.position, this.width)
         checkPlayerEnemyCollision(this, this.enemies)
         checkPlayerBuffCollision(this, this.buffs)
+        checkPlayerSmallEnemyCollision(this, this.smallEnemies)
+        checkPlayerBulletCollision(this, this.bullets)
     }
 
     // draw = () => {
@@ -201,9 +204,9 @@ class Player extends Sprite {
     }
 
     shot = (mode, shotDelay) => {
-        if ((shotDelay - this.shotClock) < mode.player.shotRateFast) return
         
         if (this.weaponType === 1) {
+            if ((shotDelay - this.shotClock) < mode.player.shotRate) return
             if (this.isShooting) {
                 this.shotClock = shotDelay
                 const bullets = this.bullets
@@ -254,8 +257,10 @@ class Player extends Sprite {
                 this.isShooting = false
             }
         }
+        
 
         if (this.weaponType === 2) {
+            if ((shotDelay - this.shotClock) < mode.player.shotRateFast) return
             if (this.isShooting) {
                 this.shotClock = shotDelay
                 const bullets = this.bullets

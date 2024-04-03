@@ -14,6 +14,7 @@ const startBtn = document.querySelector('.start-btn')
 const bullets = []
 const enemies = []
 const buffs = []
+const smallEnemies = []
 
 let currentMode
 
@@ -26,24 +27,7 @@ infoConatainer.style.display = 'none'
 const modes = {
     easy: {
         player: {
-            shotRate: 20
-        },
-        bullet: {
-            normal: 6,
-            slow: 8
-        },
-        map: {
-            normal: 1.25,
-            slow: 0.5
-        },
-        radiation: {
-            normal: 0.2,
-            slow: 0.8
-        }
-    },
-    medium: {
-        player: {
-            shotRate: 150,
+            shotRate: 120,
             shotRateFast: 60
         },
         bullet: {
@@ -62,24 +46,70 @@ const modes = {
         },
         radiation: {
             normal: 0.2,
-            slow: 0.8
+            slow: 0.4
+        },
+        render: {
+            enemy: 80,
+            buff: 700,
+            smallEnemy: 1200
+        }
+    },
+    medium: {
+        player: {
+            shotRate: 140,
+            shotRateFast: 80
+        },
+        bullet: {
+            multiply: {
+                normal: 6,
+                slow: 8
+            },
+            single: {
+                normal: 3,
+                slow: 5
+            }
+        },
+        map: {
+            normal: 1.5,
+            slow: 0.75
+        },
+        radiation: {
+            normal: 0.3,
+            slow: 0.5
+        },
+        render: {
+            enemy: 70,
+            buff: 850,
+            smallEnemy: 1000
         }
     },
     hard: {
         player: {
-            shotRate: 20
+            shotRate: 160,
+            shotRateFast: 100
         },
         bullet: {
-            normal: 6,
-            slow: 8
+            multiply: {
+                normal: 6,
+                slow: 8
+            },
+            single: {
+                normal: 3,
+                slow: 5
+            }
         },
         map: {
-            normal: 1.25,
-            slow: 0.5
+            normal: 1.75,
+            slow: 1
         },
         radiation: {
-            normal: 0.2,
-            slow: 0.8
+            normal: 0.4,
+            slow: 0.6
+        },
+        render: {
+            enemy: 60,
+            buff: 1000,
+            smallEnemy: 600
         }
     }
 }
@@ -96,6 +126,7 @@ const player = new Player({
     enemies,
 	bullets,
     buffs,
+    smallEnemies,
     imageSrc: './assets/Ship/Main Ship - Base - Full health.png',
     scale: 2,
     columns: 1,
@@ -129,18 +160,21 @@ const update = () => {
     
         board.update(currentMode);
         changeRadiation(currentMode, clock)
-        render(clock, bullets, enemies, buffs);
+        render(clock, bullets, enemies, buffs, smallEnemies, currentMode);
 
         player.update(currentMode, clock);
 
         bullets.forEach(bullet => {
-            bullet.update(currentMode);
-        });
+            bullet.update(currentMode)
+        })
         enemies.forEach(enemy => {
             enemy.update(currentMode)
         })
         buffs.forEach(buff => {
-            buff.update()
+            buff.update(currentMode)
+        })
+        smallEnemies.forEach(smallEnemy => {
+            smallEnemy.update(currentMode, clock)
         })
         clock += 1
     }

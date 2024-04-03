@@ -24,10 +24,10 @@ class Buff extends Sprite {
         }
     }
 
-    update = () => {
+    update = (mode) => {
         this.draw()
         this.animateFrames()
-        this.move()
+        this.move(mode)
         checkBuffCollision(this, this.buffs, this.bullets)
     }
 
@@ -36,13 +36,13 @@ class Buff extends Sprite {
     //     board.c.fillRect(this.position.x, this.position.y, this.width, this.height)
     // }
 
-    move = () => {
+    move = (mode) => {
         this.position.y += this.velocity.y
         if (!board.isSlower) {
-            this.velocity.y = this.speed.normal
+            this.velocity.y = mode.map.normal
         }
         if (board.isSlower) {
-            this.velocity.y = this.speed.slow
+            this.velocity.y = mode.map.slow
         }
     }
 }
