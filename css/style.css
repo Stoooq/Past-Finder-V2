@@ -49,6 +49,22 @@ body {
   padding: 20px;
   cursor: pointer;
 }
+.gameBoard .game-over {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 120px;
+  position: absolute;
+  width: 1024px;
+  height: 576px;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: default;
+}
+.gameBoard .game-over .reset-btn {
+  padding: 20px;
+  cursor: pointer;
+}
 .gameBoard .info-container {
   display: flex;
   justify-content: center;

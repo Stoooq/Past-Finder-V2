@@ -54,6 +54,24 @@ body {
         }
     }
 
+    .game-over {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 120px;
+        position: absolute;
+        width: 1024px;
+        height: 576px;
+        background-color: rgba(255, 255, 255, 0.3);
+        cursor: default;
+
+        .reset-btn {
+            padding: 20px;
+            cursor: pointer;
+        }
+    }
+
     .info-container {
         display: flex;
         justify-content: center;
