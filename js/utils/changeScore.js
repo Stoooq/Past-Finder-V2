@@ -1,5 +1,3 @@
-import board from "../modules/Board.js";
-
 const score = document.querySelector('.score-number')
 
 let num = 0

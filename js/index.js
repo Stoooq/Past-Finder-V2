@@ -4,6 +4,7 @@ import render from "./utils/renderMap.js";
 import { changeRadiation, radiationWidth } from "./utils/changeRadiation.js"
 
 const menu = document.querySelector('.menu')
+const score = document.querySelector('.score-number')
 const infoConatainer = document.querySelector('.info-container')
 const easyMode = document.querySelector('.easy')
 const mediumMode = document.querySelector('.medium')
@@ -11,6 +12,7 @@ const hardMode = document.querySelector('.hard')
 const startBtn = document.querySelector('.start-btn')
 const resetBtn = document.querySelector('.reset-btn')
 const gameOverConatiner = document.querySelector('.game-over')
+const endScore = document.querySelector('.end-score')
 
 let players = []
 let bullets = []
@@ -25,6 +27,8 @@ let clock = 0;
 let isRunning = false
 
 let modes
+
+let scoreNumber = 0
 
 gameOverConatiner.style.display = 'none'
 infoConatainer.style.display = 'none'
@@ -198,6 +202,8 @@ const update = () => {
             gameOverConatiner.style.display = 'flex'
             infoConatainer.style.display = 'none'
             isRunning = false
+            scoreNumber = 0
+            showingScore()
         }
     }
 };
@@ -230,8 +236,20 @@ const resetGame = () => {
     enemies = []
     buffs = []
     smallEnemies = []
+    score.textContent = 0
     creatingPLayer()
     createModes()
+}
+
+const showingScore = () => {
+    const interval = setInterval(() => {
+        if (score.textContent > scoreNumber) {
+            endScore.textContent = scoreNumber
+            scoreNumber++
+        } else {
+            clearInterval(interval)
+        }
+    }, 80)
 }
 
 update();

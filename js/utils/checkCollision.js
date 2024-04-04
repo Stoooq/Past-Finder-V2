@@ -77,7 +77,7 @@ const checkSmallEnemyCollision = (smallEnemy, smallEnemies, bullets) => {
                 smallEnemies.splice(smallEnemies.indexOf(smallEnemy), 1)
                 bullet.type === 1 ? bullets.splice(bullets.indexOf(bullet), 1) : ''
                 setRadiation(-5)
-                changeScore(1)
+                changeScore(5)
             }
         }
     })

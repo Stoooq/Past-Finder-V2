@@ -10,10 +10,10 @@ const render = (time, bullets, enemies, buffs, smallEnemies, mode) => {
         mode.render.smallEnemy = Math.floor(mode.render.smallEnemy * 0.95)
         mode.map.normal += 0.5
         mode.map.slow += 0.5
-        mode.bullet.multiply.normal += 0.5
-        mode.bullet.multiply.slow += 0.5
-        mode.bullet.single.normal += 0.5
-        mode.bullet.single.slow += 0.5
+        mode.bullet.multiply.normal -= 0.5
+        mode.bullet.multiply.slow -= 0.5
+        mode.bullet.single.normal -= 0.5
+        mode.bullet.single.slow -= 0.5
     }
     if (time === 3000) {
         mode.render.enemy = Math.floor(mode.render.enemy * 0.8)
@@ -21,10 +21,10 @@ const render = (time, bullets, enemies, buffs, smallEnemies, mode) => {
         mode.render.smallEnemy = Math.floor(mode.render.smallEnemy * 0.9)
         mode.map.normal += 0.5
         mode.map.slow += 0.5
-        mode.bullet.multiply.normal += 0.5
-        mode.bullet.multiply.slow += 0.5
-        mode.bullet.single.normal += 0.5
-        mode.bullet.single.slow += 0.5
+        mode.bullet.multiply.normal -= 0.5
+        mode.bullet.multiply.slow -= 0.5
+        mode.bullet.single.normal -= 0.5
+        mode.bullet.single.slow -= 0.5
     }
     if (time !== 0){
         if (time % mode.render.enemy === 0) {
